@@ -1,0 +1,7 @@
+.idea
+/storage/uploads/
+/storage/logs/*
+/storage/config.json
+/vendor/
+*.log
+/public/sitemaps

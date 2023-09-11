@@ -1,0 +1,28 @@
+{
+    "name": "kanothe/incognito-writer",
+    "authors": [
+        {
+            "name": "Kanothe",
+            "email": "francis.kanothe@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "Http\\": "Http/"
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.12"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+  "require": {
+    "ext-pdo": "*",
+        "monolog/monolog": "^3.4",
+    "ext-simplexml": "*"
+  }
+}
