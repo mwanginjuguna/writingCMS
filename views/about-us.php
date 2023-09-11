@@ -70,7 +70,7 @@ view('partials/header.php');
         </div>
     </section>
 
-    <section class="get-started" style="background-color: #ffffdd;">
+    <section class="get-started" style="background-color: #FFFC5D;">
         <div>
             <h2>Our Commitment to you</h2>
             <p>With our expert service, your academic success is the top priority to our writers. We are dedicated to providing you with the tools and support you need to excel in your studies. Our commitment to excellence, privacy, and customer satisfaction drives everything we do.</p>

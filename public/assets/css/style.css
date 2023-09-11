@@ -4,6 +4,8 @@
     --bg-gray-100: #f3f4f6;
     --bg-gray-900: #111827;
     --bg-black: black;
+    --bg-secondary: #FADEA5;
+    --green-300: #45E672;
     --slate-950: #020617;
     --slate-900: #0f172a;
     --slate-800: #1e293b;
@@ -12,10 +14,9 @@
     --slate-100: #f1f5f9;
     --slate-50: #f8fafc;
     --gray-100: #f3f4f6;
-    --green: #19FFBA;
-    --blue: #6119FF;
-    --orange: #FF410D;
-    --yellow: #FFF000;
+    --green: #45E672;
+    --blue: #7517E6;
+    --orange: #E63E00;
 
     /* Spacing */
     --_5: 0.25em;   /* 4px / 16px = 0.5em */
@@ -47,10 +48,6 @@ body {
 
 .body-content {
     padding: var(--2);
-}
-
-.active a {
-    color: var(--orange);
 }
 
 .sidebar {
@@ -93,7 +90,7 @@ img {
     position: sticky;
     top: 0;
     z-index: 20;
-    background-color: var(--yellow);
+    background-color: var(--green-300);
     padding: var(--1) var(--2);
 }
 
@@ -110,6 +107,15 @@ img {
     gap: var(--3_5);
     align-items: center;
     justify-items: center;
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+.active a {
+    color: var(--orange);
 }
 
 .cta-btns {
@@ -164,7 +170,6 @@ img {
 }
 .pop-service p {
     font-weight: bold;
-    color: var(--blue);
 }
 
 .question-body {
@@ -209,7 +214,7 @@ img {
     max-width: 60vw;
     margin-left: auto;
     margin-right: auto;
-    background-color: #ffffdd;
+    background-color: var(--bg-secondary);
     border: 1px solid var(--green);
     border-radius: var(--3);
 }
@@ -304,7 +309,7 @@ img {
 }
 .footer-credits {
     font-size: var(--2);
-    color: #ffffdd;
+    color: #FFFC5D;
 }
 
 .feature-img {
@@ -318,7 +323,7 @@ img {
     color: var(--slate-950);
     font-style: italic;
     padding-left: var(--2);
-    border-left: var(--_5) solid var(--yellow);
+    border-left: var(--_5) solid var(--green);
 }
 .hero-form {
     grid-column: span 2;
@@ -327,7 +332,7 @@ img {
 .landing-title {
     line-height: var(--3);
     font-weight: 900;
-    color: var(--blue);
+    color: var(--slate-950);
 }
 .page-title {
     line-height: var(--3);
@@ -411,7 +416,7 @@ img {
 .pop-service div {
     font-size: small;
     padding-bottom: var(--2);
-    color: var(--slate-500);
+    color: var(--slate-800);
 }
 .pop-service a {
     color: var(--orange);
@@ -628,7 +633,7 @@ th {
         padding: var(--3);
         right: var(--2);
         top: var(--6);
-        background-color: #ffffdd;
+        background-color: #FFFC5D;
     }
 
     .hero {
