@@ -1,0 +1,37 @@
+{
+    "database": {
+        "config" :  {
+            "host": "localhost",
+            "port": 3306,
+            "dbname": "incognito",
+            "charset": "utf8mb4"
+        },
+        "username" : "root",
+        "password" : ""
+    },
+    "siteTitle": "Paper Writers",
+    "siteHomeURI": "\/",
+    "siteTagline": "Top Academic writing service for all students.",
+    "siteExcerpt": "",
+    "orderLink": "https:\/\/orders.com\/new",
+    "loginLink": "https:\/\/orders.com\/login",
+    "siteEmail": "info@cmswriters.com",
+    "adminEmail": "admin@writingcms.com",
+    "adminPassword": "passw0rd!",
+    "sitePhone": "+254715219991",
+    "colors": {
+        "primary": "",
+        "secondary": "",
+        "tertiary": "",
+        "quad": "",
+        "hex": ""
+    },
+    "pages": {
+        "home": "\/",
+        "about": "\/about-us",
+        "blog": "\/blog",
+        "services": "\/services",
+        "faq": "\/faq"
+    },
+    "adminSetup": false
+}

@@ -20,9 +20,9 @@ class Sitemap
     /**
      * Generate xml
      * @param array $urls
-     * @return bool|string
+     * @return string|bool
      */
-    public function generateSitemapXml(array $urls): bool|string
+    public function generateSitemapXml(array $urls): string|bool
     {
         foreach ($urls as $url) {
             $urlElement = $this->xml->addChild('url');
@@ -85,8 +85,7 @@ class Sitemap
             $element->addChild('priority', $sitemap['priority']); // priority
         }
 
-
-        return $this->saveSitemapToFile($xmlContent, $path);
+        return $this->saveSitemapToFile($xmlContent->asXML(), $path);
     }
 
     /**
@@ -107,7 +106,11 @@ class Sitemap
      */
     public function loadSitemap(string $path): SimpleXMLElement|bool
     {
-        return simplexml_load_file($this->sitemapDir.basename($path));
+        $sitemapElement = simplexml_load_file($this->sitemapDir.basename($path));
+        if (empty($sitemapElement)) {
+           return $this->xml;
+        }
+        return $sitemapElement;
     }
 
     /**
@@ -130,56 +133,57 @@ class Sitemap
      */
     public function generateOrUpdatePostsSitemap(array $posts): bool|int
     {
-        $postsCount = count($posts);
+        // Define the maximum number of URLs allowed in a posts_sitemap file
+        $maxUrlsPerSitemap = 2000;
 
-        // look-up the posts_sitemap.xml file with the latest/largest index
-        // e.g. posts_sitemap3.xml could be the latest sitemap file
-        // check if the latest sitemap has the max urls
+        // Look for existing sitemap files and sort them by index.
+        $sitemapPaths = glob($this->sitemapDir.'posts_sitemap*.xml');
+        natsort($sitemapPaths);
+        // Find the last sitemap and its index.
+        $latestSitemapPath = end($sitemapPaths);
 
-        $postSitemapPaths = glob($this->sitemapDir.'posts_sitemap*.xml');
-        $lastPath = end($postSitemapPaths) ?? $this->sitemapDir.'posts_sitemap.xml';
+        $index = preg_match('/posts_sitemap(\d+)\.xml/', basename($latestSitemapPath), $matches)
+            ? (int)$matches[1]
+            : 0;
 
-        // Use regular expression to extract the value between "post_sitemap" and ".xml"
-        if (preg_match('/posts_sitemap(\d+)\.xml/', basename($lastPath), $matches)) {
-            $index = $matches[1];
-        } else {
-            $index = 0;
+        // Determine the sitemap to update or create.
+        $currentSitemapPath = $latestSitemapPath;
+
+        $sitemapCount = $this->sitemapItemsCount($currentSitemapPath);
+
+        while ($sitemapCount === $maxUrlsPerSitemap || $sitemapCount + count($posts) > $maxUrlsPerSitemap) {
+            $index++;
+            $currentSitemapPath = $this->sitemapDir . "posts_sitemap{$index}.xml";
+            $sitemapCount = $this->sitemapItemsCount($currentSitemapPath);
         }
-        $sitemapPath = $lastPath;
+        // Log information about the sitemap generation.
+        AppLog::logInfo(PHP_EOL . 'Attempting to generate sitemap: ', [
+            'postsCount' => count($posts),
+            'currentSitemapPath' => $currentSitemapPath,
+        ]);
 
-        $sitemapCount = $this->sitemapItemsCount($sitemapPath);
-        if ($sitemapCount !== 0) {
-            while ($sitemapCount === 2000 || $sitemapCount + $postsCount > 2000) {
-                $index++;
-                $sitemapPath = $this->sitemapDir."posts_sitemap{$index}.xml";
-            }
-        }
-
-        // if new file created, add it to the sitemapindex.xml and save the posts
-        if (!$this->sitemapExists($sitemapPath)) {
+        // If the sitemap does not exist, create it and add to the sitemap index.
+        if (!$this->sitemapExists($currentSitemapPath)) {
             $this->addToIndexSitemap([
-                "loc" => BASE_URL.basename($sitemapPath),
-                "lastmod" => date('Y-m-d')
+                "loc" => BASE_URL . basename($currentSitemapPath),
+                "lastmod" => date('Y-m-d'),
             ]);
-
-            $xmlContent = $this->generateSitemapXml($posts);
-
-            return $this->saveSitemapToFile($xmlContent, basename($sitemapPath));
         }
 
-        // load the file
-        $xmlContent = $this->loadSitemap(basename($sitemapPath));
-
-        // check if its empty
-        if (empty($xmlContent)) {
-            $xmlContent = $this->generateSitemapXml($posts);
-
-            return $this->saveSitemapToFile($xmlContent, basename($sitemapPath));
+        // Load the sitemap content if it exists; otherwise, create a new one.
+        $xmlContent = $this->loadSitemap(basename($currentSitemapPath));
+        if (!$xmlContent) {
+            $xmlContent = $this->xml;
         }
+        // Log information about the sitemap generation.
+        AppLog::logInfo(PHP_EOL . 'Saving to sitemap: ', [
+            'postsCount' => count($posts),
+            'currentSitemapPath' => $currentSitemapPath,
+            'Sitemap items count' => $xmlContent->count() ?? 'Unable to call count on object.',
+        ]);
 
-        // save posts sitemap data to the path
-        return $this->addToSitemap($posts, $xmlContent, basename($sitemapPath));
-    }
+        return $this->addToSitemap($posts, $xmlContent, basename($currentSitemapPath));
+}
 
     /**
      * Check if a sitemap exists

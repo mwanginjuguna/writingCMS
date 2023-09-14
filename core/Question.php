@@ -36,11 +36,11 @@ class Question
      * Save multiple questions into database
      * @param Database $db
      * @param array $batch
-     * @return void
+     * @return array
      */
-    public function saveMany(Database $db, array $batch): void
+    public function saveMany(Database $db, array $batch): array
     {
-        $this->insertQuestions($db, $batch);
+        return $this->insertQuestions($db, $batch);
     }
 
     /**
@@ -134,9 +134,9 @@ class Question
      * id, title, excerpt, body, category, tag, created_at.
      * @param Database $db
      * @param array $batch
-     * @return void
+     * @return int[]
      */
-    public function insertQuestions(Database $db, array $batch): void
+    public function insertQuestions(Database $db, array $batch): array
     {
         $placeholders = [];
         $values = [];
@@ -144,7 +144,7 @@ class Question
 
         foreach ($batch as $index => $question) {
             // check if the question is already in db
-            if (!$this->questionExists($question['body'], $db)) {
+            if ($this->questionExists($question['body'], $db) === false) {
 
                 // generate slug
                 $originalSlug = trim(str_replace(["`", "_", ":", "/", "\\", ".", ",", "?", " ", "   ", "  ", ": "], '-', $question['title']));
@@ -159,7 +159,7 @@ class Question
                     ":title" . $index => trim($question['title']),
                     ":excerpt" . $index => substr(trim($question['body']), 0, 120),
                     ":body" . $index => trim($question['body']),
-                    ":slug" . $index => $slug,
+                    ":slug" . $index => strtolower($slug),
                     ":category" . $index => trim($question['category']) ?? null,
                     ":tag" . $index => trim($question['tag']) ?? null
                 ];
@@ -172,22 +172,47 @@ class Question
                 $flattenedValues[$param] = $value;
             }
         }
-
         $placeholdersString = implode(", ", $placeholders);
-
         $query = "INSERT INTO questions (title, excerpt, body, slug, category, tag) VALUES {$placeholdersString}";
 
-        AppLog::logInfo(PHP_EOL.'Placeholder string: ', [
-            'query: ' => $query,
-            'Total rows count' => count($values),
-            'Total parameters count' => count($flattenedValues),
-        ]);
-
         // save to db
-        $db->query($query, $flattenedValues);
+        try {
+            $db->query($query, $flattenedValues);
+
+            AppLog::logInfo(PHP_EOL.'Placeholder string: ', [
+                'query: ' => $query,
+                'Total rows count' => count($values),
+                'Total parameters count' => count($flattenedValues),
+            ]);
+        } catch (\PDOException $exception) {
+            return [
+                "status" => 0,
+                'failed' => 'Database',
+                'success' => null,
+                "message" => "Database Error Occurred when trying to save the batch:\n {$exception}"
+                ];
+        }
 
         // generate sitemap
-        $this->processSitemaps($batchSlugs);
+        try {
+            $this->processSitemaps($batchSlugs);
+        } catch (\Error $exception) {
+            AppLog::logInfo(PHP_EOL.'Saved to db but failed to process sitemaps: ');
+            return [
+                "status" => 1,
+                'success' => 'Database',
+                'failed' => 'Sitemap',
+                "message" => "Database Error Occurred when trying to save the batch:\n {$exception}"
+            ];
+        }
+        AppLog::logInfo(PHP_EOL.'Saved and processed sitemaps: ');
+
+        return [
+            'status' => 1,
+            'success' => 'Both',
+            "failed" => null,
+            "message" => 'Success. Saved and processed sitemaps'
+        ];
     }
 
     /**
@@ -203,6 +228,7 @@ class Question
 
         while ($this->isSlugTaken($db, $slug)) {
             $slug = $slug. '-' . $counter;
+            $counter++;
         }
 
         return $slug;
@@ -238,7 +264,11 @@ class Question
                 "priority" => 9.0
             ];
         }
-
-        (new Sitemap())->generateOrUpdatePostsSitemap($posts);
+        AppLog::logInfo(PHP_EOL.'Attempting to initiate sitemap generation: ', [
+            'postsCount: ' => count($posts),
+            'Total slugs: ' => count($slugs)
+        ]);
+        $sitemap = new Sitemap();
+        $sitemap->generateOrUpdatePostsSitemap($posts);
     }
 }

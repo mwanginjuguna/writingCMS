@@ -81,18 +81,39 @@ class Uploader
     /**
      * Upload multiple questions in a batch
      * @param array $batch
-     * @return bool|Exception
+     * @return array|Exception
      */
-    public function many(array $batch): bool|Exception
+    public function many(array $batch): array|Exception
     {
+        $failed = [
+            'status' => false,
+            "success" => null,
+            "failed" => "Database"
+        ];
         try {
             $question = new Question();
-            $question->saveMany($this->db, $batch);
+            $result = $question->saveMany($this->db, $batch);
         } catch (Exception $exception) {
-            return $exception;
+            $failed['exception'] = $exception;
+            return $failed;
         }
 
+        if ($result['status'] === 0) {
+            $failed['exception'] = $result['message'];
+            return $failed;
+        }
 
-        return true;
+        if ($result['failed'] == 'Sitemap') {
+            return [
+                'status' => true,
+                "success" => 'Database only',
+                "failed" => "Sitemap"
+            ];
+        }
+        return [
+            'status' => true,
+            "success" => 'Both',
+            "failed" => null
+        ];
     }
 }
