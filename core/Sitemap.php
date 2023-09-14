@@ -143,16 +143,16 @@ class Sitemap
         if (preg_match('/posts_sitemap(\d+)\.xml/', basename($lastPath), $matches)) {
             $index = $matches[1];
         } else {
-            $index = 1;
+            $index = 0;
         }
         $sitemapPath = $lastPath;
 
         $sitemapCount = $this->sitemapItemsCount($sitemapPath);
-
-        while ($sitemapCount === 2000 || $sitemapCount + $postsCount > 2000) {
-            $sitemapPath = $this->sitemapDir."posts_sitemap{$index}.xml";
-            $index++;
-
+        if ($sitemapCount !== 0) {
+            while ($sitemapCount === 2000 || $sitemapCount + $postsCount > 2000) {
+                $index++;
+                $sitemapPath = $this->sitemapDir."posts_sitemap{$index}.xml";
+            }
         }
 
         // if new file created, add it to the sitemapindex.xml and save the posts
@@ -167,7 +167,15 @@ class Sitemap
             return $this->saveSitemapToFile($xmlContent, basename($sitemapPath));
         }
 
+        // load the file
         $xmlContent = $this->loadSitemap(basename($sitemapPath));
+
+        // check if its empty
+        if (empty($xmlContent)) {
+            $xmlContent = $this->generateSitemapXml($posts);
+
+            return $this->saveSitemapToFile($xmlContent, basename($sitemapPath));
+        }
 
         // save posts sitemap data to the path
         return $this->addToSitemap($posts, $xmlContent, basename($sitemapPath));
@@ -202,7 +210,8 @@ class Sitemap
     public function sitemapItemsCount(string $path): int
     {
         $xmlData = $this->loadSitemap(basename($path));
-        return $xmlData->count();
+
+        return is_object($xmlData) ? $xmlData->count() : 0;
     }
 
     /**

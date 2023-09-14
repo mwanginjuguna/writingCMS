@@ -94,6 +94,23 @@ class Question
     }
 
     /**
+     * Check if question exists
+     * @param string $questionBody This is the $body part of the question since each question has a unique body.
+     * @param Database $db
+     * @return bool
+     */
+    public function questionExists(string $questionBody, Database $db): bool
+    {
+        $query = 'select * from questions where body = :body';
+
+        $exists = $db->query($query, [
+            ":body" => $questionBody
+        ])->find();
+
+        return (bool)$exists;
+    }
+
+    /**
      * New Question
      * @param Database $db
      * @param int $categoryId
@@ -126,19 +143,27 @@ class Question
         $batchSlugs = []; // slugs to create and update sitemap
 
         foreach ($batch as $index => $question) {
-            $originalSlug = trim(str_replace(["`","_",":","/","\\",".",",","?"," ", "   ","  ", ": "],'-', $question['title']));
-            $slug = $this->generateUniqueSlug($db, $originalSlug);
-            $batchSlugs[] = $slug;
+            // check if the question is already in db
+            if (!$this->questionExists($question['body'], $db)) {
 
-            $placeholders[] = "(:title{$index}, :excerpt{$index}, :body{$index}, :slug{$index}, :category{$index}, :tag{$index})";
-            $values[] = [
-                ":title" . $index => trim($question['title']),
-                ":excerpt" . $index => substr(trim($question['body']), 0, 120),
-                ":body" . $index => trim($question['body']),
-                ":slug" . $index => $slug,
-                ":category" . $index => trim($question['category']) ?? null,
-                ":tag" . $index => trim($question['tag']) ?? null
-            ];
+                // generate slug
+                $originalSlug = trim(str_replace(["`", "_", ":", "/", "\\", ".", ",", "?", " ", "   ", "  ", ": "], '-', $question['title']));
+
+                $slug = $this->generateUniqueSlug($db, $originalSlug);
+                $batchSlugs[] = $slug;
+
+                // placeholders for db query
+                $placeholders[] = "(:title{$index}, :excerpt{$index}, :body{$index}, :slug{$index}, :category{$index}, :tag{$index})";
+
+                $values[] = [
+                    ":title" . $index => trim($question['title']),
+                    ":excerpt" . $index => substr(trim($question['body']), 0, 120),
+                    ":body" . $index => trim($question['body']),
+                    ":slug" . $index => $slug,
+                    ":category" . $index => trim($question['category']) ?? null,
+                    ":tag" . $index => trim($question['tag']) ?? null
+                ];
+            }
         }
         // flatten the values array
         $flattenedValues = [];
@@ -157,7 +182,11 @@ class Question
             'Total rows count' => count($values),
             'Total parameters count' => count($flattenedValues),
         ]);
+
+        // save to db
         $db->query($query, $flattenedValues);
+
+        // generate sitemap
         $this->processSitemaps($batchSlugs);
     }
 
