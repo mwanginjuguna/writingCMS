@@ -160,8 +160,15 @@ class Question
                     ":excerpt" . $index => substr(trim($question['body']), 0, 120),
                     ":body" . $index => trim($question['body']),
                     ":slug" . $index => strtolower($slug),
-                    ":category" . $index => trim($question['category']) ?? null,
-                    ":tag" . $index => trim($question['tag']) ?? null
+                    ":category" . $index => !empty(trim($question['category'])) ? trim($question['category']) : "Others",
+                    ":tag" . $index => !empty(trim($question['tag'])) ? trim($question['tag']) : "Top writer"
+                ];
+            } else {
+                return [
+                    "status" => 0,
+                    'failed' => 'Database',
+                    'success' => null,
+                    "message" => "Database Error Occurred! The questions already exists."
                 ];
             }
         }
@@ -177,6 +184,13 @@ class Question
 
         // save to db
         try {
+            AppLog::logInfo(PHP_EOL.'Catching Error: ', [
+                'query: ' => $query,
+                'values: ' => $flattenedValues,
+                'Total rows count' => count($values),
+                'Total parameters count' => count($flattenedValues),
+            ]);
+
             $db->query($query, $flattenedValues);
 
             AppLog::logInfo(PHP_EOL.'Placeholder string: ', [

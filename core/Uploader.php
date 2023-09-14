@@ -90,6 +90,7 @@ class Uploader
             "success" => null,
             "failed" => "Database"
         ];
+
         try {
             $question = new Question();
             $result = $question->saveMany($this->db, $batch);
