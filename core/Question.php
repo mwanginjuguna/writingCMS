@@ -167,7 +167,7 @@ class Question
                 return [
                     "status" => 0,
                     'failed' => 'Database',
-                    'success' => null,
+                    'success' => 'exists',
                     "message" => "Database Error Occurred! The questions already exists."
                 ];
             }

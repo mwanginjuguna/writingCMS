@@ -101,6 +101,7 @@ class Uploader
 
         if ($result['status'] === 0) {
             $failed['exception'] = $result['message'];
+            $result['success'] == 'exists' ? $failed['success'] = 'exists' : $failed['success'] = null;
             return $failed;
         }
 

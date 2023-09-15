@@ -64,6 +64,7 @@ class ApiManager
         try {
             $res = $uploader->many($decodedData);
 
+            $code = $res['status'] ? 201 : 500;
             $message = "";
             if ($res['status'] === true && $res['failed'] === null) {
                 $message = "The batch has been processed successfully. All questions in the batch have been processed.";
@@ -71,12 +72,15 @@ class ApiManager
                 $message = "Questions saved to db, but failed to process sitemaps.";
             } elseif ($res['success'] == null) {
                 $message = "An error occurred while processing the questions to database.\n\n".$res['exception'];
+            } elseif ($res['success'] == 'exists') {
+                $code = 201;
+                $message = "Questions Already Exist in the database.";
             }
 
             $result = [
-                'success' => $res['status'],
+                'success' => $res['success'] == 'exists' ? true : $res['status'],
                 'message' => $message,
-                'statusCode' => $res['status'] ? 201 : 500,
+                'statusCode' => $code,
                 'length of json' => count($decodedData),
                 'status' => $res['status'] ? "Created" : "Failed."
             ];
