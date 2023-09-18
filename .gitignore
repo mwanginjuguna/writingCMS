@@ -1,5 +1,4 @@
 .idea
 /storage/uploads/
-/storage/logs/*
 /vendor/
-*.log
+

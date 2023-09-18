@@ -39,22 +39,26 @@ $sitemapDir = basePath('public/sitemaps/');
 $pageSitemaps = $sitemap->loadSitemap('page_sitemap.xml');
 
 // check if all pages are registered in the sitemap
-$existingPageUrls = $sitemap->loadExistingPageUrls($pageSitemaps);
+if (!empty($pageSitemaps)) {
+    $existingPageUrls = $sitemap->loadExistingPageUrls($pageSitemaps);
 
-$newPages = [];
-foreach ($pages as $pageKey => $page) {
-    if (! in_array($page['loc'], $existingPageUrls)) {
-        $newPages[] = $page;
+    $newPages = [];
+    foreach ($pages as $pageKey => $page) {
+        if (!in_array($page['loc'], $existingPageUrls)) {
+            $newPages[] = $page;
+        }
     }
-}
-if (!empty($newPages)) {
-    $sitemap->addToSitemap($newPages, $pageSitemaps, 'page_sitemap.xml');
+    if (!empty($newPages)) {
+        $sitemap->addToSitemap($newPages, $pageSitemaps, 'page_sitemap.xml');
+    }
+} else {
+    $sitemap->savePagesToXml($pages);
 }
 
 $sitemaps = $sitemap->sitemaps();
 
 if (isset($admin)) {
-    return true;
+    redirect('/admin');
 } else {
     http_response_code(200);
     header('Content-Type: application/json');

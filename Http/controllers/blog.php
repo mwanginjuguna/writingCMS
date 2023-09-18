@@ -14,16 +14,7 @@ $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
 $offset = ($currentPage - 1) * $perPage;
 
-$query = "select
-    questions.*,
-    categories.name as category_name,
-    tags.name as tag_name
-from
-    questions
-left join categories on questions.category_id = categories.id
-left join tags on questions.tag_id = tags.id
-order by created_at desc
-limit {$perPage} offset {$offset}";
+$query = "select questions.* from questions order by created_at desc limit {$perPage} offset {$offset}";
 
 $questions = $db->query($query)
     ->get();

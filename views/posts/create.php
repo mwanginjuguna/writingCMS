@@ -19,27 +19,13 @@ view('partials/header.php');
         </div>
 
         <div class="form-element">
-            <label for="category_id" class="form-label">Categories</label>
-            <select id="category_id" name="category_id" class="form-select form-element">
-                <option selected value="1">Choose a category</option>
-                <?php
-                foreach ($categories as $category) :
-                    ?>
-                    <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
-                <?php endforeach; ?>
-            </select>
+            <label for="category" class="form-label">Category</label>
+            <input id="category" required name="category" class="text-input" placeholder="Enter category e.g. 'History'" value="<?= $_POST['category'] ?? '' ?>">
         </div>
 
         <div class="form-element">
-            <label for="tag_id" class="form-label">Tags</label>
-            <select id="tag_id" name="tag_id" class="form-select form-element">
-                <option selected value="<?= $_POST['id'] ?? 1 ?>">Choose a tag</option>
-                <?php
-                foreach ($tags as $tag) :
-                    ?>
-                    <option value="<?= $tag['id'] ?>"><?= $tag['name'] ?></option>
-                <?php endforeach; ?>
-            </select>
+            <label for="tag" class="form-label">Tag</label>
+            <input id="tag" required name="tag" class="text-input" placeholder="Enter tag e.g. 'history paper, urgent, term paper, etc'" value="<?= $_POST['tag'] ?? '' ?>">
         </div>
         <div class="form-element">
             <label for="body" class="form-label">Body</label>

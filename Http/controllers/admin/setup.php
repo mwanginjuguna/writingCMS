@@ -21,9 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $admin->setup($setupDetails);
 
         require 'Http/controllers/sitemaps/init.php';
-
-        // redirect to admin index
-        redirect('/admin');
     }
     $errors = $admin->errors();
 }

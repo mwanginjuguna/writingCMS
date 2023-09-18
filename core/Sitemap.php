@@ -54,18 +54,18 @@ class Sitemap
     }
 
     /**
-     * Adding a sitemap to sitemapindex.xml
+     * Adding a sitemap to sitemap.xml
      * @param array $sitemap
      * @return bool|int
      */
     public function addToIndexSitemap(array $sitemap): bool|int
     {
-        $this->xml = $this->loadSitemap('sitemap.xml');
-        $element = $this->xml->addChild('sitemap');
-        $element->addChild('loc', $sitemap['loc']);
-        $element->addChild('lastmod', $sitemap['lastmod']);
+        $xmlContent = $this->loadSitemap('sitemap.xml');
+        $element = $xmlContent->addChild('sitemap');
+        $element->addChild('loc', htmlspecialchars($sitemap['loc']));
+        $element->addChild('lastmod', htmlspecialchars($sitemap['lastmod']));
 
-        return $this->saveSitemapToFile($this->xml->asXML(), 'sitemap.xml');
+        return $this->saveSitemapToFile($xmlContent->asXML(), 'sitemap.xml');
     }
 
     /**
@@ -79,10 +79,10 @@ class Sitemap
     {
         foreach ($sitemaps as $sitemap) {
             $element = $xmlContent->addChild('url');
-            $element->addChild('loc', $sitemap['loc']);
-            $element->addChild('lastmod', $sitemap['lastmod']);
-            $element->addChild('changefreq', $sitemap['changefreq']); // change frequency
-            $element->addChild('priority', $sitemap['priority']); // priority
+            $element->addChild('loc', htmlspecialchars($sitemap['loc']));
+            $element->addChild('lastmod', htmlspecialchars($sitemap['lastmod']));
+            $element->addChild('changefreq', htmlspecialchars($sitemap['changefreq'])); // change frequency
+            $element->addChild('priority', htmlspecialchars($sitemap['priority'])); // priority
         }
 
         return $this->saveSitemapToFile($xmlContent->asXML(), $path);
@@ -106,8 +106,8 @@ class Sitemap
      */
     public function loadSitemap(string $path): SimpleXMLElement|bool
     {
-        $sitemapElement = simplexml_load_file($this->sitemapDir.basename($path));
-        if (empty($sitemapElement)) {
+        $sitemapElement = @simplexml_load_file($this->sitemapDir.basename($path));
+        if (empty($sitemapElement) && basename($path) !== 'sitemap.xml') {
            return $this->xml;
         }
         return $sitemapElement;
@@ -165,16 +165,15 @@ class Sitemap
         // If the sitemap does not exist, create it and add to the sitemap index.
         if (!$this->sitemapExists($currentSitemapPath)) {
             $this->addToIndexSitemap([
-                "loc" => BASE_URL . basename($currentSitemapPath),
+                "loc" => BASE_URL ."sitemaps/". basename($currentSitemapPath),
                 "lastmod" => date('Y-m-d'),
             ]);
+            $xmlContent = $this->xml;
+        } else {
+            // Load the sitemap content if it exists; otherwise, create a new one.
+            $xmlContent = $this->loadSitemap(basename($currentSitemapPath)) ?? null;
         }
 
-        // Load the sitemap content if it exists; otherwise, create a new one.
-        $xmlContent = $this->loadSitemap(basename($currentSitemapPath));
-        if (!$xmlContent) {
-            $xmlContent = $this->xml;
-        }
         // Log information about the sitemap generation.
         AppLog::logInfo(PHP_EOL . 'Saving to sitemap: ', [
             'postsCount' => count($posts),

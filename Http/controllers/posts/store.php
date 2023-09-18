@@ -16,13 +16,10 @@ if (!Validator::string($_POST['title'])) {
 }
 
 if (!empty($errors)) {
-    $categories = $db->query('SELECT * FROM categories')->get();
-    $tags = $db->query('SELECT * FROM tags')->get();
-
     return view('posts/create.php', ["errors" => $errors]);
 }
 
-$query = "INSERT INTO questions(title, excerpt, body, category_id, tag_id) VALUES(:title, :excerpt, :body, :category_id, :tag_id)";
+$query = "INSERT INTO questions(title, excerpt, body, category, tag) VALUES(:title, :excerpt, :body, :category, :tag)";
 
 $db->query(
     query: $query,
@@ -30,8 +27,8 @@ $db->query(
         ":title" => $_POST['title'],
         ":excerpt" => $_POST['excerpt'],
         ":body" => $_POST['body'],
-        ":category_id" => $_POST['category_id'],
-        ":tag_id" => $_POST['tag_id']
+        ":category" => $_POST['category'],
+        ":tag" => $_POST['tag']
     ]
 );
 

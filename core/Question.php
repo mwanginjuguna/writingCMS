@@ -26,10 +26,7 @@ class Question
      */
     public function save(Database $db): void
     {
-        $categoryId = $this->insertOrUpdateCategory($db, $this->category);
-        $tagId = $this->insertOrUpdateTag($db, $this->tag);
-
-        $this->insertQuestion($db, $categoryId, $tagId);
+        $this->insertQuestion($db);
     }
 
     /**
@@ -113,18 +110,16 @@ class Question
     /**
      * New Question
      * @param Database $db
-     * @param int $categoryId
-     * @param int $tagId
      * @return void
      */
-    public function insertQuestion(Database $db, int $categoryId, int $tagId): void
+    public function insertQuestion(Database $db): void
     {
-        $db->query("INSERT INTO questions (title, excerpt, body, category_id, tag_id) VALUES (:title, :excerpt, :body, :category_id, :tag_id)", params:[
+        $db->query("INSERT INTO questions (title, excerpt, body, category, tag) VALUES (:title, :excerpt, :body, :category, :tag)", params:[
             ":title" => $this->title,
             ":excerpt" => $this->excerpt,
             ":body" => $this->body,
-            ":category_id" => $categoryId,
-            ":tag_id" => $tagId
+            ":category" => $this->category,
+            ":tag" => $this->tag
         ]);
     }
 
@@ -147,7 +142,11 @@ class Question
             if ($this->questionExists($question['body'], $db) === false) {
 
                 // generate slug
-                $originalSlug = trim(str_replace(["`", "_", ":", "/", "\\", ".", ",", "?", " ", "   ", "  ", ": "], '-', $question['title']));
+                $originalSlug = preg_replace(
+                    '/[^a-z0-9]+/',
+                    '-',
+                    trim(strtolower($question['title']))
+                );
 
                 $slug = $this->generateUniqueSlug($db, $originalSlug);
                 $batchSlugs[] = $slug;
@@ -237,7 +236,7 @@ class Question
      */
     public function generateUniqueSlug(Database $db, string $originalString): string
     {
-        $slug = $originalString;
+        $slug = preg_replace('/[^a-z0-9]+/', '-', strtolower(trim($originalString)));
         $counter = 1;
 
         while ($this->isSlugTaken($db, $slug)) {
