@@ -12,9 +12,9 @@ view('partials/header.php');
             <?php
             if (!$configData['sitemapInit']){
                 ?>
-                <div>
+                <div style="padding-bottom: 1em">
                     Sitemaps have not been initialized. Click this button to initialize sitemaps.
-                    <p><a href="/admin/sitemap-init" class="btn secondary-btn">
+                    <p><a href="/admin/sitemap-init" class="btn primary-btn">
                         Initialize Sitemaps
                     </a></p>
                 </div>
@@ -22,15 +22,27 @@ view('partials/header.php');
             }
             ?>
 
-            <a href="/posts/create" class="btn secondary-btn">
+            <p><a href="/posts/create" class="btn secondary-btn">
                 Create A New Post
-            </a>
-            <p style="margin-top:4em;" class="stat">Total Visitors: 300</p>
+            </a></p>
+            <p style="margin-top:4em;" class="stat">Total Visitors: <?php echo $visits > 0 ? $visits : 'No visitors yet!' ?></p>
 
             <div class="quick-nav">
                 <p><a href="/sitemap">View Sitemaps</a></p>
                 <p><a href="/questions/new">Upload CSV</a></p>
-                <p><a href="/admin-setup">Customize Website</a></p>
+                <p>
+                    <a href="/admin-setup">
+                        Customize Website
+                    </a>
+                    <?php
+                    if (empty($configData['googleVerificationCode'])) {
+                        echo '<span style="font-size: x-small;color: orangered;">Your site is not verified by Google. Go to <a href="/admin-setup">Customize</a> and update the Google verification code.</span>';
+                    } else{
+                        echo '<span style="font-size: x-small;color: green;">Your site is verified by Google.</span>';
+                    }
+                    ?>
+
+                </p>
             </div>
         </div>
 

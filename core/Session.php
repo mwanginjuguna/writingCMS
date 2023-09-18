@@ -4,6 +4,7 @@ namespace Core;
 
 class Session
 {
+    public int $visits = 0;
     /**
      * save session to database
      * @param Database $database
@@ -16,16 +17,20 @@ class Session
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $url = BASE_URL.$_SERVER['REQUEST_URI'];
 
+
         if (!$this->exists($database, $ipAddress)) {
-            $database->query('INSERT INTO sessions(session_id, ip_address, user_agent, last_activity) VALUES(:session_id, :ip_address, :user_agent, CURRENT_TIMESTAMP)', [
+            $database->query('INSERT INTO sessions(session_id, ip_address, user_agent, visits, last_activity) VALUES(:session_id, :ip_address, :user_agent, :visits, CURRENT_TIMESTAMP)', [
                 ":session_id" => $sessionId,
                 ":ip_address" => $ipAddress,
                 ":user_agent" => $userAgent,
+                ":visits" => 1
+            ]);
+        } else {
+            $database->query('UPDATE sessions SET visits = :visits, last_activity = CURRENT_TIMESTAMP WHERE ip_address=:ip_address', [
+                ":ip_address" => $ipAddress,
+                ":visits" => $this->visits + 1
             ]);
         }
-        $database->query('UPDATE sessions SET last_activity = CURRENT_TIMESTAMP WHERE ip_address=:ip_address', [
-            ":ip_address" => $ipAddress
-        ]);
     }
 
     /**
@@ -37,8 +42,12 @@ class Session
     public function exists(Database $database, string $ipAddress): bool
     {
         $session = $database->query('SELECT * FROM sessions WHERE ip_address = :ipAddress', [
-            ":sessionId" => $ipAddress
+            ":ipAddress" => $ipAddress
         ])->find();
+
+        if ($session) {
+            $this->visits = $session['visits'];
+        }
 
         return (bool)$session;
     }

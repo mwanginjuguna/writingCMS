@@ -4,7 +4,7 @@ $pages = [
     "home" => [
         "loc" => BASE_URL,
         "lastmod" => date('Y-m-d'),
-        "changefreq" => 'yearly',
+        "changefreq" => 'monthly',
         "priority" => 10
     ],
     "about" => [
@@ -22,13 +22,13 @@ $pages = [
     "faq" => [
         "loc" => BASE_URL . "/faq",
         "lastmod" => date('Y-m-d'),
-        "changefreq" => 'daily',
+        "changefreq" => 'yearly',
         "priority" => 10
     ],
     "services" => [
         "loc" => BASE_URL . "/services",
         "lastmod" => date('Y-m-d'),
-        "changefreq" => 'daily',
+        "changefreq" => 'yearly',
         "priority" => 10
     ],
 ];
@@ -37,11 +37,10 @@ $sitemap = new \Core\Sitemap();
 $sitemapDir = basePath('public/sitemaps/');
 
 $pageSitemaps = $sitemap->loadSitemap('page_sitemap.xml');
+$existingPageUrls = $sitemap->loadExistingPageUrls($pageSitemaps);
 
 // check if all pages are registered in the sitemap
 if (!empty($pageSitemaps)) {
-    $existingPageUrls = $sitemap->loadExistingPageUrls($pageSitemaps);
-
     $newPages = [];
     foreach ($pages as $pageKey => $page) {
         if (!in_array($page['loc'], $existingPageUrls)) {
@@ -54,6 +53,19 @@ if (!empty($pageSitemaps)) {
 } else {
     $sitemap->savePagesToXml($pages);
 }
+
+// initialize the index sitemap
+$arrs = [
+    [
+        "loc" => BASE_URL . "/sitemaps/page_sitemap.xml",
+        "lastmod" => date('Y-m-d')
+    ],
+    [
+        "loc" => BASE_URL . "/sitemaps/posts_sitemap.xml",
+        "lastmod" => date('Y-m-d')
+    ]
+];
+$sitemap->generateIndexSitemapXML($arrs);
 
 $sitemaps = $sitemap->sitemaps();
 
