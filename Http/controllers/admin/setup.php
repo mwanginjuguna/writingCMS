@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // "siteLogo" => $_FILES["site-logo"] ?? '',
         "orderLink" => $_POST["order-link"],
         "loginLink" => $_POST["login-link"],
-        "adminSetup" => true
+        "googleVerificationCode" => $_POST["googleVerificationCode"],
     ];
 
     // validate admin setup
@@ -19,12 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($admin->validate($setupDetails)) {
         // save setup details to json
         $admin->setup($setupDetails);
+        // initialize sitemaps? - maybe not here
+        // require 'Http/controllers/sitemaps/init.php';
 
-        require 'Http/controllers/sitemaps/init.php';
+        redirect('/admin');
     }
     $errors = $admin->errors();
 }
 
 view('admin/setup.php', [
-    "errors" => empty($errors) ? [] : $errors
+    "errors" => empty($errors) ? [] : $errors,
+    "data" => $admin->loadInfo()->data
 ]);

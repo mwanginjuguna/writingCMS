@@ -10,4 +10,6 @@ return [
     'siteEmail' => $env['siteEmail'],
     'sitePhone' => $env['sitePhone'],
     "database" => $env['database'],
+    "googleVerificationCode" => $env['googleVerificationCode'],
+    "sitemapInit" => $env['sitemapInit'],
 ];

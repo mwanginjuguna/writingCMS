@@ -19,6 +19,7 @@
     "adminEmail": "admin@writingcms.com",
     "adminPassword": "passw0rd!",
     "sitePhone": "+254715219991",
+    "googleVerificationCode": "",
     "colors": {
         "primary": "",
         "secondary": "",
@@ -33,5 +34,6 @@
         "services": "\/services",
         "faq": "\/faq"
     },
+    "sitemapInit": false,
     "adminSetup": false
 }

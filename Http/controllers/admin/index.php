@@ -1,5 +1,6 @@
 <?php
-$configData = json_decode(file_get_contents(basePath('storage/config.json')), true);
+$admin = new \Core\Admin();
+$configData = $admin->loadInfo()->data;
 $db = \Core\App::resolve(\Core\Database::class);
 
 $query = 'SELECT

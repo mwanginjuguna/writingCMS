@@ -57,7 +57,7 @@ if (!empty($pageSitemaps)) {
 
 $sitemaps = $sitemap->sitemaps();
 
-if (isset($admin)) {
+if (isset($admin) || $_SERVER['REQUEST_METHOD'] === 'GET') {
     redirect('/admin');
 } else {
     http_response_code(200);

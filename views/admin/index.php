@@ -9,6 +9,19 @@ view('partials/header.php');
                 Welcome, Admin!
             </p>
 
+            <?php
+            if (!$configData['sitemapInit']){
+                ?>
+                <div>
+                    Sitemaps have not been initialized. Click this button to initialize sitemaps.
+                    <p><a href="/admin/sitemap-init" class="btn secondary-btn">
+                        Initialize Sitemaps
+                    </a></p>
+                </div>
+                <?php
+            }
+            ?>
+
             <a href="/posts/create" class="btn secondary-btn">
                 Create A New Post
             </a>

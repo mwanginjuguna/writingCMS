@@ -16,7 +16,7 @@ class Session
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $url = BASE_URL.$_SERVER['REQUEST_URI'];
 
-        if (!$this->exists($database, $sessionId)) {
+        if (!$this->exists($database, $ipAddress)) {
             $database->query('INSERT INTO sessions(session_id, ip_address, user_agent, last_activity) VALUES(:session_id, :ip_address, :user_agent, CURRENT_TIMESTAMP)', [
                 ":session_id" => $sessionId,
                 ":ip_address" => $ipAddress,
@@ -31,13 +31,13 @@ class Session
     /**
      * check if session exists in database
      * @param Database $database
-     * @param string $sessionId
+     * @param string $ipAddress
      * @return bool
      */
-    public function exists(Database $database, string $sessionId): bool
+    public function exists(Database $database, string $ipAddress): bool
     {
-        $session = $database->query('SELECT * FROM sessions WHERE session_id = :sessionId', [
-            ":sessionId" => $sessionId
+        $session = $database->query('SELECT * FROM sessions WHERE ip_address = :ipAddress', [
+            ":sessionId" => $ipAddress
         ])->find();
 
         return (bool)$session;

@@ -77,6 +77,16 @@ view('partials/header.php');
                 <p class="form-error"><?= $errors['siteEmail'] ?? '' ?></p>
             </div>
 
+            <div class="form-element">
+                <label for="site-email" class="form-label">
+                    Google Verification Code:
+                </label><span style="color: red;font-size: small">*</span>
+                <span style="font-size: x-small">Go to Google Console and verify your website. Choose HTML tag option.
+                    Copy the code and paste the part with content only i.e. the part of the tag that looks something like this: content="qcwsES6RE4qlVt47Qdx2ndjgY" without the 'content=' part. Paste it here.</span>
+                <input id="googleVerificationCode" name="googleVerificationCode" class="text-input" placeholder="Paste the part only Google Verification Code from Google console">
+                <p class="form-error"><?= $errors['googleVerificationCode'] ?? '' ?></p>
+            </div>
+
             <button type="submit" class="btn primary-btn">Submit</button>
         </form>
     </div>

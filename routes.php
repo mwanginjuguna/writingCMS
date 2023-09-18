@@ -32,6 +32,7 @@ $router->post('/logout', 'auth/session/destroy.php')->only('auth');
 $router->get('/admin-setup', 'admin/setup.php')->only('auth');
 $router->post('/admin-setup', 'admin/setup.php')->only('auth');
 $router->get('/admin', 'admin/index.php')->only('auth');
+$router->get('/admin/sitemap-init', 'admin/sitemap-init.php')->only('auth');
 
 // api routes
 $router->post('/api/questions', 'api/index.php');
