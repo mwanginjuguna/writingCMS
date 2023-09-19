@@ -22,12 +22,12 @@
         </p>
         <p>
             <span  class="post-category">
-                <a href="/categories/<?php echo $question['category']; ?>">
+                <a href="/blog">
                     <?= $question['category'] ?>
                 </a>
             </span> |
             <span class="post-tags">
-                <a href="/tags/<?php echo $question['tag']; ?>">
+                <a href="/blog">
                     <?= $question['tag'] ?>
                 </a>
             </span>
