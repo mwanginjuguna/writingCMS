@@ -50,7 +50,7 @@ class Sitemap
             $sitemapElement->addChild('lastmod', $sitemap['lastmod']);
         }
         
-        return $this->xml->asXML();
+        return $this->saveSitemapToFile($this->xml->asXML(), 'sitemap.xml');
     }
 
     /**

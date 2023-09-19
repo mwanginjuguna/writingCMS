@@ -34,6 +34,6 @@
         "services": "\/services",
         "faq": "\/faq"
     },
-    "sitemapInit": false,
-    "adminSetup": false
+    "sitemapInit": true,
+    "adminSetup": true
 }

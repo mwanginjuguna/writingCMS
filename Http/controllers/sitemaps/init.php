@@ -33,6 +33,9 @@ $pages = [
     ],
 ];
 
+$admin = new \Core\Admin();
+$data = $admin->loadInfo()->data;
+
 $sitemap = new \Core\Sitemap();
 $sitemapDir = basePath('public/sitemaps/');
 
@@ -69,7 +72,10 @@ $sitemap->generateIndexSitemapXML($arrs);
 
 $sitemaps = $sitemap->sitemaps();
 
-if (isset($admin) || $_SERVER['REQUEST_METHOD'] === 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $data['sitemapInit'] = true;
+    $data['adminSetup'] = true;
+    $admin->setup($data);
     redirect('/admin');
 } else {
     http_response_code(200);

@@ -16,7 +16,7 @@ $defaultExcerpt = 'Get instant and reliable assignment writing help from expert 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle ?? $config['siteTitle'];?></title>
+    <title><?php echo $pageTitle ?? $config['siteTitle'].' - '.$config['siteTagline'];?></title>
     <meta name="description" content="<?php echo $pageExcerpt ?? $config['siteExcerpt'] ?? $defaultExcerpt ?>">
     <meta name="google-site-verification" content="<?php echo $config['googleVerificationCode'] ?>" />
     <link rel="canonical" href="<?= BASE_URL.$_SERVER['REQUEST_URI'] ?>">
