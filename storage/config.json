@@ -3,7 +3,7 @@
         "config": {
             "host": "localhost",
             "port": 3306,
-            "dbname": "incognito",
+            "dbname": "writingcms",
             "charset": "utf8mb4"
         },
         "username": "root",
