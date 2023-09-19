@@ -17,18 +17,18 @@
 
         <p class="blog-entry-excerpt">
             <?php
-            echo $question ? $question['excerpt'] : "Your first step in developing Project Part One for the course is to identify the two artifacts you want to compare and the theme that is common to both artifacts.";
+            echo $question ? $question['excerpt'] : "Time is precious, and so are your grades. Let us handle your academic writing tasks while you focus on what truly matters. Say goodbye to stress and hello to top-notch papers!";
             ?>
         </p>
         <p>
             <span  class="post-category">
-                <a href="/categories/<?php echo $question['category_name'] ?? $question['category']; ?>">
-                    <?= $question['category_name'] ?? $question['category'] ?>
+                <a href="/categories/<?php echo $question['category']; ?>">
+                    <?= $question['category'] ?>
                 </a>
             </span> |
             <span class="post-tags">
-                <a href="/tags/<?php echo $question['tag_name'] ?? $question['tag']; ?>">
-                    <?= $question['tag_name'] ?? $question['tag'] ?>
+                <a href="/tags/<?php echo $question['tag']; ?>">
+                    <?= $question['tag'] ?>
                 </a>
             </span>
         </p>

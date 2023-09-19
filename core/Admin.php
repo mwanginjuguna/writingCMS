@@ -25,8 +25,8 @@ class Admin
         if (!Validator::string($attr['siteTitle'])) {
             $this->errors['siteTitle'] = "Invalid site title.";
         }
-        if (!Validator::string($attr['siteExcerpt'], 50, 160)) {
-            $this->errors['siteExcerpt'] = "Excerpt must be between 50-160 characters.";
+        if (!Validator::string($attr['siteExcerpt'])) {
+            $this->errors['siteExcerpt'] = "Excerpt is invalid. Try keep it about 160 characters.";
         }
         if (!Validator::string($attr['siteTagline'])) {
             $this->errors['siteTagline'] = "Invalid site tagline.";

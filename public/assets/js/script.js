@@ -430,3 +430,25 @@ jsonBtn.addEventListener('click', async () => {
         console.log('An error occurred: ', error)
     }
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+    const textArea = document.getElementById('site-excerpt');
+    const counter = document.getElementById('textarea-counter');
+    const limit = 160;
+
+    textArea.addEventListener('input', () => {
+        const currentLength = textArea.value.length;
+
+        if (currentLength <= limit) {
+            // Update the counter with the current character count
+            counter.textContent = `${currentLength}/${limit}`;
+            // Remove any previous red styling
+            textArea.style.color = 'black';
+        } else {
+            // Display the character count in red
+            counter.textContent = `${currentLength}/${limit}`;
+            // Apply red styling to the exceeded characters
+            textArea.style.color = 'red';
+        }
+    });
+})

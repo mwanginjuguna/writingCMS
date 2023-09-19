@@ -1,25 +1,25 @@
 {
     "database": {
-        "config" :  {
+        "config": {
             "host": "localhost",
             "port": 3306,
             "dbname": "incognito",
             "charset": "utf8mb4"
         },
-        "username" : "root",
-        "password" : ""
+        "username": "root",
+        "password": ""
     },
-    "siteTitle": "Paper Writers",
+    "siteTitle": "Writing CMS",
     "siteHomeURI": "\/",
-    "siteTagline": "Top Academic writing service for all students.",
-    "siteExcerpt": "",
+    "siteTagline": "The best PHP CMS for academic writing websites.",
+    "siteExcerpt": "This CMS is created and optimized to support essay writing websites by identifying and leveraging the common and relevant features that are required for publishing question-based and SEO-friendly websites.",
     "orderLink": "https:\/\/orders.com\/new",
     "loginLink": "https:\/\/orders.com\/login",
     "siteEmail": "info@cmswriters.com",
     "adminEmail": "admin@writingcms.com",
     "adminPassword": "passw0rd!",
     "sitePhone": "+254715219991",
-    "googleVerificationCode": "",
+    "googleVerificationCode": "qcwsES6RE4qlVt47Qdx2ndjgY",
     "colors": {
         "primary": "",
         "secondary": "",

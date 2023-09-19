@@ -61,7 +61,7 @@ view('partials/header.php');
             <h3>Professional Writing service</h3>
 
             <div>
-                <p><em>Trust your writing tasks and assignments with a reliable and verified service with experts who will meet your deadlines.</em></p>
+                <p><em>Join the many successful students who have trusted our academic writing expertise. Our academic writing services ensure you never miss a deadline and ace every assignment. Don't wait – let's write your success story together!</em></p>
                 <h2>What you get from out service:</h2>
 
                 <div class="service-svg">

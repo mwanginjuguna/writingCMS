@@ -18,6 +18,7 @@ $defaultExcerpt = 'Get instant and reliable assignment writing help from expert 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? $config['siteTitle'];?></title>
     <meta name="description" content="<?php echo $pageExcerpt ?? $config['siteExcerpt'] ?? $defaultExcerpt ?>">
+    <meta name="google-site-verification" content="<?php echo $config['googleVerificationCode'] ?>" />
     <link rel="canonical" href="<?= BASE_URL.$_SERVER['REQUEST_URI'] ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,8 +48,16 @@ $defaultExcerpt = 'Get instant and reliable assignment writing help from expert 
             </div>
 
             <div class="cta-btns">
-                <button class="btn secondary-btn">Login</button>
-                <button class="btn primary-btn">Order Now</button>
+                <button class="btn secondary-btn">
+                    <a href="<?php echo $config['loginLink'] ?>">
+                        Login
+                    </a>
+                </button>
+                <button class="btn primary-btn">
+                    <a href="<?php echo $config['orderLink'] ?>">
+                        Order Now
+                    </a>
+                </button>
 
                 <div class="hamburger">
                     <!-- Hamburger icon to show the menu -->

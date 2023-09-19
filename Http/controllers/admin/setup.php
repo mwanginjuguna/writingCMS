@@ -2,6 +2,7 @@
 
 use Core\Admin;
 
+$admin = new Admin();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $setupDetails = [
         "siteTitle" => $_POST["site-title"],
@@ -15,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     // validate admin setup
-    $admin = new Admin();
     if ($admin->validate($setupDetails)) {
         // save setup details to json
         $admin->setup($setupDetails);
