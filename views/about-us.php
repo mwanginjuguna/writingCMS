@@ -13,7 +13,7 @@ view('partials/header.php');
         </div>
 
         <div class="page-hero-right feature-img">
-            <img alt="Logo" src="<?php echo assetPath('images/incognito.png'); ?>">
+            <img alt="Logo" src="<?php echo assetPath('images/logo.png'); ?>">
         </div>
     </div>
 
