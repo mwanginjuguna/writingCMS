@@ -62,6 +62,6 @@ $assets = App::resolve(Assets::class);
             <p>Price: $<span id="amount">45</span></p>
         </div>
 
-        <button class="btn primary-btn">Order Now</button>
+        <button class="btn primary-btn"><a href="<?php echo $config['orderLink'] ?>">Order Now</a></button>
     </form>
 </div>

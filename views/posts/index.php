@@ -7,7 +7,7 @@ view('partials/header.php');
         <div class="page-hero-left">
             <h1>Blog - Incognito Writers</h1>
             <p class="page-excerpt">News and Discussions for your writing journey.</p>
-            <a class="btn secondary-btn" href="/orders/new">Order Now</a>
+            <a class="btn secondary-btn" href="<?php echo $config['orderLink'] ?? $loginLink ?? ''; ?>">Order Now</a>
             <!-- stats -->
             <?php view('partials/stats.php'); ?>
         </div>
@@ -43,6 +43,10 @@ view('partials/header.php');
 
         <a class="btn" href="/blog?page=<?= $nextPage ?>">Next</a>
     </div>
+
+    <?php
+    view('partials/cta-section.php');
+    ?>
 </div>
 <?php
 view('partials/footer.php');

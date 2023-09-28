@@ -10,7 +10,7 @@ $db = App::resolve(Database::class);
 
 $perPage = 30;
 
-$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 2;
 
 $offset = ($currentPage - 1) * $perPage;
 
@@ -26,4 +26,4 @@ view('posts/index.php', [
     "questions" => $questions,
     "pages" => $total_pages
 ]);
-?>
+

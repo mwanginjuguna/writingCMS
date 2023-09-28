@@ -15,42 +15,40 @@ view('partials/header.php', [
         <div class="question-details">
             <h1 class="question-title">
                 <?php
-                echo $post['title'];
+                echo htmlentities($post['title']);
                 ?>
             </h1>
             <p class="question-excerpt">
                 <?php
-                echo $post['excerpt'];
+                echo htmlentities($post['excerpt']);
                 ?>
             </p>
             <div class="question-meta">
                 <p class="question-category">
                     <span style="font-weight: bold;">Category: </span>
                     <?php
-                    echo $post['category_name'] ?? $post['category'];
+                    echo htmlentities($post['category']);
                     ?>
                 </p>
 
                 <p class="question-tags"><span style="font-weight: bold;">Tags: </span>
                     <?php
-                    echo $post['tag_name'] ?? $post['tag'];
+                    echo htmlentities($post['tag']);
                     ?>
                 </p>
             </div>
         </div>
 
         <div class="question-body" style="white-space: pre-line">
-            <svg width="64px" height="64px" viewBox="-5 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --> <title>badge</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Vivid.JS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Vivid-Icons" transform="translate(-749.000000, -564.000000)"> <g id="Icons" transform="translate(37.000000, 169.000000)"> <g id="badge" transform="translate(702.000000, 390.000000)"> <g transform="translate(10.000000, 5.000000)"> <polygon id="Shape" fill="#FF410D" points="7.012 24 7.012 38 14 31 20.988 38 20.988 24"> </polygon> <circle id="Oval" fill="#0C0058" fill-rule="nonzero" cx="14" cy="14" r="14"> </circle> <circle id="Oval" fill="#FF410D" cx="14" cy="14" r="6"> </circle> </g> </g> </g> </g> </g> </g>
-            </svg>
+            <svg height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#FFFFFF;" d="M372.809,508H94.315c-15.735-0.04-28.477-12.783-28.517-28.517V32.517 C65.838,16.782,78.581,4.04,94.315,4h323.378c15.735,0.04,28.477,12.783,28.517,28.517v402.306"></path> <path style="fill:#8E8E8E;" d="M372.817,512H94.315c-17.95-0.024-32.501-14.575-32.517-32.525V32.517 C61.814,14.567,76.365,0.024,94.315,0h323.378c17.95,0.024,32.485,14.567,32.509,32.517v402.298h-7.999V32.517 C442.179,18.99,431.22,8.023,417.685,7.999H94.315C80.78,8.015,69.813,18.982,69.797,32.517v446.958 c0.016,13.535,10.983,24.502,24.518,24.518h278.51V512H372.817z"></path> <path style="fill:#333333;" d="M372.809,450.246v61.706l77.129-77.129h-61.682C379.744,434.839,372.841,441.727,372.809,450.246z"></path> <g> <path style="fill:#E21B1B;" d="M188.762,308.603l-19.198,63.138h-41.948l71.393-222.787H250.9l72.393,222.787H279.65 l-20.182-63.138H188.762z M252.556,277.862l-17.518-54.867c-4.296-13.543-7.935-28.757-11.199-41.644h-0.664 c-3.304,12.887-6.615,28.429-10.575,41.644l-17.19,54.867H252.556z"></path> <path style="fill:#E21B1B;" d="M350.659,147.53v40.388h38.78v13.935h-38.78v40.748h-14.663v-40.748h-38.772v-13.935h38.78V147.53 H350.659z"></path> </g> </g></svg>
 
             <h4>Question Details:</h4>
 
             <?php
-            echo $post['body'];
+            echo htmlentities($post['body']);
             ?>
-
-            <svg width="64px" height="64px" viewBox="-4 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --> <title>doc</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Vivid.JS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Vivid-Icons" transform="translate(-750.000000, -644.000000)"> <g id="Icons" transform="translate(37.000000, 169.000000)"> <g id="doc" transform="translate(702.000000, 468.000000)"> <g transform="translate(11.000000, 7.000000)"> <rect id="Rectangle-path" fill="#FF6E6E" fill-rule="nonzero" x="0" y="0" width="26" height="34"> </rect> <path d="M5,0 L5,11 L8,8 L11,11 L11,0 L5,0 Z M17,12 L26,12 L26,14 L17,14 L17,12 Z M17,18 L26,18 L26,20 L17,20 L17,18 Z M17,23 L26,23 L26,25 L17,25 L17,23 Z" id="Shape" fill="#0C0058"> </path> <path d="M13.995,12.005 L13.995,13.987 L17.005,13.987 L17.005,12.005 L13.995,12.005 Z M13.995,18.015 L13.995,20 L17.005,20 L17.005,18.016 L13.995,18.016 L13.995,18.015 Z M13.995,22.993 L13.995,25.007 L17.005,25.007 L17.005,22.993 L13.995,22.993 Z" id="Shape" fill="#FFFFFF"> </path> </g> </g> </g> </g> </g> </g>
-            </svg>
+<br>
+            <svg height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <polygon style="fill:#E21B1B;" points="195,419.392 218.656,349.08 159.52,305.48 232.968,301.744 255.376,235.144 279.424,304.6 352.48,306.104 293.816,353.696 317,420.016 256.264,381.184 "></polygon> <polygon style="fill:#E21B1B;" points="35.48,276.232 59.136,205.92 0,162.32 73.448,158.592 95.856,91.984 119.904,161.448 192.96,162.944 134.296,210.536 157.48,276.856 96.744,238.024 "></polygon> <polygon style="fill:#E21B1B;" points="354.52,276.232 378.176,205.92 319.04,162.32 392.488,158.592 414.896,91.984 438.944,161.448 512,162.944 453.336,210.536 476.52,276.856 415.776,238.024 "></polygon> </g> </g></svg>
             <p><a href="<?= $orderLink ?>">Order an Original Solution</a></p>
         </div>
     </div>
@@ -103,6 +101,9 @@ view('partials/header.php', [
     view( 'partials/blog-template.php', ["questions" => $relatedPosts]);
     ?>
 </section>
+<?php
+view('partials/cta-section.php');
+?>
 <?php
 view('partials/footer.php');
 ?>

@@ -11,7 +11,7 @@ view('partials/header.php');
         <div>
             <h1 class="page-title">Frequently Asked Questions (FAQ) - Your Queries, Our Solutions</h1>
             <p class="page-excerpt">Answering your frequently asked questions.</p>
-            <a class="btn primary-btn" href="/orders/new">Write my Paper</a>
+            <a class="btn primary-btn" href="<?php echo $config['orderLink'] ?>">Write my Paper</a>
         </div>
 
         <img alt="" class="feature-img" src="<?php echo assetPath('images/how-to-order-incognito-writers.png'); ?>">
@@ -90,14 +90,7 @@ view('partials/header.php');
         </div>
     </section>
 
-    <section class="get-started">
-        <div>
-            <h2>Your Success Starts Here</h2>
-            <p>
-                Whether you need assistance with research papers, essays, dissertations, presentations, or any other academic writing task, let us be your reliable partner. Trust us to deliver exceptional results and support you every step of the way</p>
-            <a href="/orders/new" class="btn primary-btn">Get Started Now</a>
-        </div>
-    </section>
+    <?php view('partial/cta-section.php'); ?>
 </div>
 
 <?php

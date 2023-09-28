@@ -8,7 +8,7 @@ view('partials/header.php');
             <h1 class="page-title">About us - Your trusted partner in academic success.</h1>
             <p class="page-excerpt">We are a team of professional writers, researchers, and certified educators from USA, Canada, UK, and Australia. Our goal is to help you simplify your writing and learning process. We understand the challenges that students face in their academic journey, and our mission is to provide them with reliable, top-quality writing services to help them succeed.</p>
             <div style="padding-top: 1em">
-                <a class="btn primary-btn" href="/orders/new">Order Now</a>
+                <a class="btn primary-btn" href="<?php echo $config['orderLink'] ?>">Get Started</a>
             </div>
         </div>
 
@@ -70,7 +70,13 @@ view('partials/header.php');
         </div>
     </section>
 
-    <section class="get-started" style="background-color: #FFFC5D;">
+    <section>
+        <?php
+        view('partials/core-services.php', ['bgClass' => 'bg-secondary']);
+        ?>
+    </section>
+
+    <section class="get-started" style="background-color: #FFFFFF;">
         <div>
             <h2>Our Commitment to you</h2>
             <p>With our expert service, your academic success is the top priority to our writers. We are dedicated to providing you with the tools and support you need to excel in your studies. Our commitment to excellence, privacy, and customer satisfaction drives everything we do.</p>
@@ -81,14 +87,9 @@ view('partials/header.php');
         </div>
     </section>
 
-    <section class="get-started">
-        <div>
-            <h2>Your Success Starts Here</h2>
-            <p>
-                Whether you need assistance with research papers, essays, dissertations, presentations, or any other academic writing task, let us be your reliable partner. Trust us to deliver exceptional results and support you every step of the way</p>
-            <a href="/orders/new" class="btn primary-btn">Get Started Now</a>
-        </div>
-    </section>
+    <?php
+    view('partials/cta-section.php');
+    ?>
 </div>
 
 <?php

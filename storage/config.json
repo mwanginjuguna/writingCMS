@@ -18,7 +18,7 @@
     "siteEmail": "info@cmswriters.com",
     "adminEmail": "admin@writingcms.com",
     "adminPassword": "passw0rd!",
-    "sitePhone": "+254715219991",
+    "sitePhone": "+123456789",
     "googleVerificationCode": "qcwsES6RE4qlVt47Qdx2ndjgY",
     "colors": {
         "primary": "",
@@ -34,6 +34,6 @@
         "services": "\/services",
         "faq": "\/faq"
     },
-    "sitemapInit": true,
-    "adminSetup": true
+    "sitemapInit": false,
+    "adminSetup": false
 }

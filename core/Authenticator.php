@@ -25,7 +25,7 @@ class Authenticator
 
         $user = [
             'email' => $this->config['adminEmail'],
-            'password' => $this->config['[adminPassword]']
+            'password' => $this->config['adminPassword']
             ];
 
         if ($user['email'] === $email && $password === $user['password']) {

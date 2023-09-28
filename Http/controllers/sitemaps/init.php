@@ -14,6 +14,12 @@ $pages = [
         "priority" => 10
     ],
     "blog" => [
+        "loc" => BASE_URL . "/latest/blog",
+        "lastmod" => date('Y-m-d'),
+        "changefreq" => 'daily',
+        "priority" => 10
+    ],
+    "blog" => [
         "loc" => BASE_URL . "/blog",
         "lastmod" => date('Y-m-d'),
         "changefreq" => 'daily',

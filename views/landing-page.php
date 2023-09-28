@@ -14,7 +14,7 @@ view('partials/header.php', ['config' => $config]);
             <p>We help you excel in your studies with our reliable and high-quality writing services crafted by top-tier writers who deliver exceptional papers.</p>
         </div>
         <div class="hero-form">
-            <?php view('partials/order-form-calculator.php') ?>
+            <?php view('partials/order-form-calculator.php', ["config" => $config]) ?>
         </div>
 
         <!-- stats -->
@@ -33,7 +33,7 @@ view('partials/header.php', ['config' => $config]);
 
         <div class="benefit-list">
             <div class="benefit-block">
-                <img src="<?php echo assetPath('images/excelling-in-academics.png'); ?>" alt="" class="benefit-img">
+                <img src="<?php echo assetPath('images/excelling-in-academics.png'); ?>" alt="Academic Excellence" class="benefit-img">
 
                 <div class="b-desc">
                     <h3>Gain an Academic Edge with Professionally Crafted Papers by Top Writers</h3>
@@ -85,11 +85,11 @@ view('partials/header.php', ['config' => $config]);
                     </div>
                 </div>
 
-                <img src="<?php echo assetPath('images/how-to-order-incognito-writers.png'); ?>" alt="" class="benefit-img">
+                <img src="<?php echo assetPath('images/how-to-order.png'); ?>" alt="How to Order" class="benefit-img">
             </div>
 
             <div class="benefit-block">
-                <img src="<?php echo assetPath('images/quality-custom-solutions.png'); ?>" alt="" class="benefit-img">
+                <img src="<?php echo assetPath('images/quality-custom-solutions.png'); ?>" alt="Customized Solutions" class="benefit-img">
 
                 <div class="b-desc">
                     <h3>Get Customized Writing Solutions with Timely Delivery and Unmatched Quality</h3>
@@ -169,13 +169,9 @@ view('partials/header.php', ['config' => $config]);
         </div>
     </section>
 
-    <section class="get-started">
-        <div>
-            <h2>Ready to Experience Academic Excellence?</h2>
-            <p>Place your order today and unlock your academic potential with Incognito Writer. Our expert writers are here to help you succeed!</p>
-            <a href="/orders/new" class="btn primary-btn">Get Started Now</a>
-        </div>
-    </section>
+    <?php
+    view('partials/cta-section.php');
+    ?>
 </div>
 
 <?php

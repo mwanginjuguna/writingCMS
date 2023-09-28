@@ -4,7 +4,8 @@ $router->get('/', 'landing-page.php');
 $router->get('/about-us', 'about-us.php');
 $router->get('/faq', 'faq.php');
 $router->get('/services', 'services.php');
-$router->get('/blog', 'blog.php'); // all posts/questions
+$router->get('/blog', 'blog.php');
+$router->get('/latest/blog', 'blog.php');
 
 $router->get('/questions/new', 'questionCreate.php')->only('auth');
 

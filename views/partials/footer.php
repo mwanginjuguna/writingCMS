@@ -14,14 +14,14 @@
             <h3>Contact Us</h3>
 
             <div class="footer-logo">
-                <img style="width: 4rem;" src="<?php echo assetPath('images/incognito.svg'); ?>" alt="Incognito Logo">
+                <img style="width: 4rem;" src="<?php echo assetPath('images/logo.svg'); ?>" alt="Site Logo">
                 <p><?= $config['siteTagline'] ?></p>
             </div>
 
             <p><strong>Email: </strong><?=$config['siteEmail'] ?></p>
             <p><strong>Call: </strong><?= isset($config['sitePhone']) ? $config['sitePhone'] : '' ?></p>
 
-            <button class="btn primary-btn">Place an order</button>
+            <button class="btn primary-btn"><a href="<?php echo $config['orderLink'] ?>">Place an order</a></button>
         </div>
 
         <div class="footer-explore">
@@ -37,7 +37,7 @@
             <p><a href="/samples">Samples</a></p>
             <p><a href="/notes">Notes</a></p>
             <p><a href="/">Plagiarism-Checker</a></p>
-            <p><a href="/blog">Blog</a></p>
+            <p><a href="/latest/blog">Blog</a></p>
         </div>
     </div>
 

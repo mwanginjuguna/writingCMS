@@ -5,9 +5,9 @@ view('partials/header.php');
 <div class="page">
     <div class="page-hero">
         <div class="page-hero-left">
-            <h1>Blog - Incognito Writers</h1>
-            <p class="page-excerpt">News and Discussions for your writing journey.</p>
-            <a class="btn secondary-btn" href="/orders/new">Order Now</a>
+            <h1>Blog - Top Writers for Quality assistance with assignments</h1>
+            <p class="page-excerpt">Access top-quality solutions for your assignments and count on us to meet your deadlines, even on short notice.</p>
+            <a class="btn secondary-btn" href="<?php echo $config['orderLink'] ?>">Order Now</a>
             <!-- stats -->
             <?php view('partials/stats.php'); ?>
         </div>

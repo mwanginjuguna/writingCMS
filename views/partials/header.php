@@ -35,16 +35,15 @@ $defaultExcerpt = 'Get instant and reliable assignment writing help from expert 
         <!-- navbar -->
         <nav class="navbar">
             <!-- logo -->
-            <a href="" class="top-logo">
-                <img alt="Logo" src="<?php echo assetPath('images/incognito.svg'); ?>" style="width: 2rem;">
+            <a href="/" class="top-logo">
+                <img alt="Site Logo" src="<?php echo assetPath('images/logo.svg'); ?>" style="width: 2rem;">
                 <p class="site-title"><?= $config['siteTitle'] ?></p>
             </a>
             <div class="main-menu">
                 <p class="<?= urlIs('/') ? 'active' : 'default' ?>"><a href="/">Home</a></p>
                 <p class="<?= urlIs('/about-us') ? 'active' : 'default' ?>"><a href="/about-us">About Us</a></p>
                 <p class="<?= urlIs('/faq') ? 'active' : 'default' ?>"><a href="/faq">FAQ</a></p>
-                <p class="<?= urlIs('/blog') ? 'active' : 'default' ?>"><a href="/blog">Blog</a></p>
-                <p class="<?= urlIs('/questions/new') ? 'active' : 'default' ?>"><a href="/questions/new">New Question</a></p>
+                <p class="<?= urlIs('/latest/blog') || urlIs('blog') ? 'active' : 'default' ?>"><a href="/latest/blog">Blog</a></p>
             </div>
 
             <div class="cta-btns">
@@ -80,5 +79,5 @@ $defaultExcerpt = 'Get instant and reliable assignment writing help from expert 
         <p class="<?= urlIs('/about-us') ? 'active' : 'default' ?>"><a href="/about-us">About Us</a></p>
         <p class="<?= urlIs('/faq') ? 'active' : 'default' ?>"><a href="/faq">FAQ</a></p>
         <p class="<?= urlIs('/services') ? 'active' : 'default' ?>"><a href="/services">Our Services</a></p>
-        <p class="<?= urlIs('/blog') ? 'active' : 'default' ?>"><a href="/blog">Blog</a></p>
+        <p class="<?= urlIs('/latest/blog') ? 'active' : 'default' ?>"><a href="/latest/blog">Blog</a></p>
     </div>

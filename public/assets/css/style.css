@@ -29,6 +29,10 @@
     --6: 3em;     /* 48px / 16px = 3em */
 }
 
+.bg-secondary{
+    background-color: var(--bg-secondary);
+}
+
 html {
     background-color: white;
     color: var(--slate-800);
@@ -78,6 +82,10 @@ h1, h2, h4, h5, h6, .question-title {
 
 img {
     border-radius: var(--1);
+}
+button a {
+    text-decoration: none;
+    color: white;
 }
 
 .main {
@@ -193,6 +201,10 @@ img {
     max-width: 16rem;
     min-width: 4rem;
     border-radius: var(--2);
+}
+.order-form a {
+    text-decoration: none;
+    color: white;
 }
 
 .btn {
@@ -561,6 +573,9 @@ th {
 
     .question-excerpt {
         font-size: var(--4);
+    }
+    .question-body {
+        width: 80%;
     }
 
     .hamburger {
