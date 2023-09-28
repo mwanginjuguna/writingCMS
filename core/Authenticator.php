@@ -8,7 +8,7 @@ class Authenticator
 
     public function __construct()
     {
-        $this->config = json_decode(file_get_contents('storage/config.json'), true);
+        $this->config = json_decode(file_get_contents(basePath('storage/config.json')), true);
     }
 
     /**

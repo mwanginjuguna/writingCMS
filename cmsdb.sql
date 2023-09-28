@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2023 at 01:53 PM
+-- Generation Time: Sep 28, 2023 at 09:27 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `incognito`
+-- Database: `writingcms`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `name` varchar(255) NOT NULL,
   `slug` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -44,7 +44,7 @@ CREATE TABLE `questions` (
   `title` text NOT NULL,
   `excerpt` tinytext DEFAULT NULL,
   `body` longtext NOT NULL,
-  `slug` text DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `category` varchar(1000) DEFAULT NULL,
   `tag` varchar(1000) DEFAULT NULL,
   `views` int(11) DEFAULT 0,
@@ -75,8 +75,8 @@ CREATE TABLE `question_files` (
 CREATE TABLE `sessions` (
   `id` int(11) NOT NULL,
   `session_id` text NOT NULL,
-  `ip_address` text DEFAULT 'Unknown IP',
-  `user_agent` text DEFAULT 'Unknown User Agent',
+  `ip_address` varchar(255) DEFAULT NULL,
+  `user_agent` varchar(500) DEFAULT NULL,
   `visits` int(11) DEFAULT NULL,
   `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`payload`)),
   `last_activity` timestamp NOT NULL DEFAULT current_timestamp()
@@ -90,7 +90,7 @@ CREATE TABLE `sessions` (
 
 CREATE TABLE `tags` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `name` varchar(255) NOT NULL,
   `slug` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -117,14 +117,14 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `app_category_index` (`name`) USING HASH;
+  ADD UNIQUE KEY `app_category_index` (`name`);
 
 --
 -- Indexes for table `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idx_unique_slug` (`slug`) USING HASH,
+  ADD UNIQUE KEY `idx_unique_slug` (`slug`),
   ADD KEY `tag` (`tag_id`),
   ADD KEY `FOREIGNKEY` (`category_id`),
   ADD KEY `idx_created_at` (`created_at`),
@@ -149,7 +149,7 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `app_tags_index` (`name`) USING HASH;
+  ADD UNIQUE KEY `app_tags_index` (`name`);
 
 --
 -- Indexes for table `users`
