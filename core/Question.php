@@ -156,7 +156,7 @@ class Question
 
                 $values[] = [
                     ":title" . $index => trim($question['title']),
-                    ":excerpt" . $index => substr(trim($question['body']), 0, 120),
+                    ":excerpt" . $index => utf8_encode((string)substr(trim($question['body']), 0, 120)),
                     ":body" . $index => trim($question['body']),
                     ":slug" . $index => strtolower($slug),
                     ":category" . $index => !empty(trim($question['category'])) ? trim($question['category']) : "Others",
